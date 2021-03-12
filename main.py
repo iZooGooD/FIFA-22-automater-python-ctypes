@@ -65,7 +65,7 @@ class KeyPresser:
     @staticmethod
     def press_and_release_key(hex_key_code, delay):
         KeyPresser.press_key(hex_key_code)
-        time.sleep(4)
+        time.sleep(1)
         KeyPresser.release_key(hex_key_code)
-        time.sleep(4)
+        time.sleep(1)
         time.sleep(delay)
