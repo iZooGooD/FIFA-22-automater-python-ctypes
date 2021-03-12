@@ -43,3 +43,29 @@ class Input_I(ctypes.Union):
 class Input(ctypes.Structure):
     _fields_ = [("type", ctypes.c_ulong),
                 ("ii", Input_I)]
+    
+
+class KeyPresser:
+    @staticmethod
+    def press_key(hex_key_code):
+        extra = ctypes.c_ulong(0)
+        ii_ = Input_I()
+        ii_.ki = KeyBdInput(0, hex_key_code, 0x0008, 0, ctypes.pointer(extra))
+        x = Input(ctypes.c_ulong(1), ii_)
+        ctypes.windll.user32.SendInput(1, ctypes.pointer(x), ctypes.sizeof(x))
+
+    @staticmethod
+    def release_key(hex_key_code):
+        extra = ctypes.c_ulong(0)
+        ii_ = Input_I()
+        ii_.ki = KeyBdInput(0, hex_key_code, 0x0008 | 0x0002, 0, ctypes.pointer(extra))
+        x = Input(ctypes.c_ulong(1), ii_)
+        ctypes.windll.user32.SendInput(1, ctypes.pointer(x), ctypes.sizeof(x))
+
+    @staticmethod
+    def press_and_release_key(hex_key_code, delay):
+        KeyPresser.press_key(hex_key_code)
+        time.sleep(4)
+        KeyPresser.release_key(hex_key_code)
+        time.sleep(4)
+        time.sleep(delay)
