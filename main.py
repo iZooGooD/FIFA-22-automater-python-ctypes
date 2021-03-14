@@ -69,3 +69,12 @@ class KeyPresser:
         KeyPresser.release_key(hex_key_code)
         time.sleep(1)
         time.sleep(delay)
+
+class AnimationSkipper:
+    @staticmethod
+    def skip_pack_animation():
+        global kill_flag
+        while not kill_flag:
+            for _ in range(3):
+                KeyPresser.press_and_release_key(S_KEY, 1)
+            time.sleep(3)
