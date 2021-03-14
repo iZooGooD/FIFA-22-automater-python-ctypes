@@ -78,3 +78,22 @@ class AnimationSkipper:
             for _ in range(3):
                 KeyPresser.press_and_release_key(S_KEY, 1)
             time.sleep(3)
+
+class HalfTimeSkipper:
+    @staticmethod
+    def skip_half_time():
+        global kill_flag
+        while not kill_flag:
+            for _ in range(4):
+                KeyPresser.press_and_release_key(ENTER_KEY, 1)
+            time.sleep(25)
+
+class UserSideDetector:
+    @staticmethod
+    def get_user_side():
+        try:
+            positions = pyautogui.locateCenterOnScreen('homeTeam.png', confidence=0.8, region=(0, 0, 423, 304))
+            return 0 if positions else 1
+        except Exception as e:
+            print(e)
+            return 1
