@@ -93,7 +93,7 @@ class UserSideDetector:
     def get_user_side():
         try:
             positions = pyautogui.locateCenterOnScreen('homeTeam.png', confidence=0.8, region=(0, 0, 423, 304))
-            return 0 if positions else 1
+            return 0 if positions else 1  # 0: Home team, 1: Away team
         except Exception as e:
             print(e)
-            return 1
+            return 1 # Default to away team
