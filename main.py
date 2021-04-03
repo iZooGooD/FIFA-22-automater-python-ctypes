@@ -97,3 +97,39 @@ class UserSideDetector:
         except Exception as e:
             print(e)
             return 1 # Default to away team
+        
+class MenuAutomation:
+    @staticmethod
+    def is_match_already_played():
+        positions = pyautogui.locateCenterOnScreen('alreadyPlaye.png', region=(1494, 226, 427, 408))
+        return bool(positions)
+
+    @staticmethod
+    def press_key_sequence(key, delay_sequence):
+        for delay in delay_sequence:
+            KeyPresser.press_and_release_key(key, delay)
+
+    @staticmethod
+    def press_attack_mode_sequence():
+        attack_mode_sequence = [1, 1, 1]
+        MenuAutomation.press_key_sequence(0x50, attack_mode_sequence)
+
+    @staticmethod
+    def start_match_sequence():
+        global kill_flag
+        kill_flag = False
+        enter_key_sequence = [2, 3, 2, 2, 4, 2, 4, 2, 10]
+        MenuAutomation.press_key_sequence(ENTER_KEY, enter_key_sequence)
+        s_key_sequence = [1, 2, 1]
+        MenuAutomation.press_key_sequence(S_KEY, s_key_sequence)
+        threading.Timer(1, AnimationSkipper.skip_pack_animation).start()
+        threading.Timer(5, HalfTimeSkipper.skip_half_time).start()
+        time.sleep(1)
+        MenuAutomation.press_attack_mode_sequence()
+
+    @staticmethod
+    def navigate_menu(key):
+        KeyPresser.press_key(key)
+        time.sleep(0.2)
+        KeyPresser.release_key(key)
+        time.sleep(1)
