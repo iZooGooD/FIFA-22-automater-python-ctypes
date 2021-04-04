@@ -101,7 +101,7 @@ class UserSideDetector:
 class MenuAutomation:
     @staticmethod
     def is_match_already_played():
-        positions = pyautogui.locateCenterOnScreen('alreadyPlaye.png', region=(1494, 226, 427, 408))
+        positions = pyautogui.locateCenterOnScreen('alreadyPlayed.png', region=(1494, 226, 427, 408))
         return bool(positions)
 
     @staticmethod
@@ -124,7 +124,7 @@ class MenuAutomation:
         MenuAutomation.press_key_sequence(S_KEY, s_key_sequence)
         threading.Timer(1, AnimationSkipper.skip_pack_animation).start()
         threading.Timer(5, HalfTimeSkipper.skip_half_time).start()
-        time.sleep(1)
+        time.sleep(2)
         MenuAutomation.press_attack_mode_sequence()
 
     @staticmethod
@@ -132,4 +132,4 @@ class MenuAutomation:
         KeyPresser.press_key(key)
         time.sleep(0.2)
         KeyPresser.release_key(key)
-        time.sleep(1)
+        time.sleep(2)
