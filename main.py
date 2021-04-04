@@ -133,3 +133,55 @@ class MenuAutomation:
         time.sleep(0.2)
         KeyPresser.release_key(key)
         time.sleep(2)
+
+class MatchSelector:
+    @staticmethod
+    def match_selection_loop():
+        while True:
+            time.sleep(15)
+            if not MenuAutomation.is_match_already_played():
+                print("Match is not already played, starting match...")
+                MenuAutomation.start_match_sequence()
+                break
+            else:
+                MatchSelector._navigate_and_check(ARROW_RIGHT_KEY)
+
+            if not MenuAutomation.is_match_already_played():
+                print("Match is not already played, starting match...")
+                MenuAutomation.start_match_sequence()
+                break
+            else:
+                MatchSelector._navigate_and_check(ARROW_DOWN_KEY)
+
+            if not MenuAutomation.is_match_already_played():
+                print("Match is not already played, starting match...")
+                MenuAutomation.start_match_sequence()
+                break
+            else:
+                MatchSelector._navigate_and_check(ARROW_LEFT_KEY)
+
+            if not MenuAutomation.is_match_already_played():
+                print("Match is not already played, starting match...")
+                MenuAutomation.start_match_sequence()
+                break
+            else:
+                MatchSelector._navigate_and_check(ARROW_UP_KEY)
+
+    @staticmethod
+    def _navigate_and_check(key):
+        MenuAutomation.navigate_menu(key)
+        if not MenuAutomation.is_match_already_played():
+            print("Match is not already played, starting match...")
+            MenuAutomation.start_match_sequence()
+            return True
+        return False
+
+    @staticmethod
+    def perform_attack_mode_sequence():
+        user_side = UserSideDetector.get_user_side()
+        print(f"User side: {user_side}")
+        if user_side == 0:
+            pyautogui.hotkey('alt', '7')
+        elif user_side == 1:
+            pyautogui.hotkey('alt', '6')
+        MenuAutomation.press_attack_mode_sequence()
