@@ -185,3 +185,18 @@ class MatchSelector:
         elif user_side == 1:
             pyautogui.hotkey('alt', '6')
         MenuAutomation.press_attack_mode_sequence()
+
+class TeamSwitcherExecutor:
+    @staticmethod
+    def switch_teams():
+        global kill_flag
+        user_side = UserSideDetector.get_user_side()
+        print(f"userSide {user_side}")
+        kill_flag = True
+        alt_key = '6' if user_side == 0 else '7'
+        pyautogui.hotkey('alt', alt_key)
+        time.sleep(80)
+        for _ in range(7):
+            MenuAutomation.press_key_sequence(S_KEY, [1])
+        pyautogui.hotkey('alt', alt_key)
+        MatchSelector.match_selection_loop()
