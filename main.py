@@ -200,3 +200,12 @@ class TeamSwitcherExecutor:
             MenuAutomation.press_key_sequence(S_KEY, [1])
         pyautogui.hotkey('alt', alt_key)
         MatchSelector.match_selection_loop()
+
+### Main Code ###
+if __name__ == "__main__":
+    MatchSelector.match_selection_loop()
+    while True:
+        time.sleep(2)
+        TeamSwitcher.check_switch_team() # type: ignore
+        if should_switch_team: # type: ignore
+            TeamSwitcherExecutor.switch_teams()
